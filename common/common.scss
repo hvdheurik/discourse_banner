@@ -1,0 +1,56 @@
+@import "common/foundation/variables";
+
+.ccb-title {
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+}
+
+.ccb-buttons {
+  display: flex;
+  width: 100%;
+}
+
+.ccb-btn-container {
+  position: relative;
+}
+
+.ccb-flex-gap {
+  flex: 1;
+}
+
+.ccb-main-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ccb-btn {
+  padding: 0;
+  background: $secondary;
+  letter-spacing: 0.4px;
+  color: $tertiary !important;
+
+  &:hover {
+    background: $primary-very-low;
+    color: $tertiary;
+  }
+}
+
+.ccb-toggle-container {
+  border-bottom: 3px solid $primary-low;
+  display: flex;
+  width: 100%;
+}
+
+.ccb-toggle {
+  padding: 10px;
+  font-size: 90%;
+  cursor: pointer;
+  color: $primary-low-mid;
+  font-style: italic;
+
+  &:hover {
+    color: $primary-medium;
+  }
+}

@@ -1,0 +1,67 @@
+<script type='text/discourse-plugin' version="0.1">
+  window.crmBanner = {
+
+    getCookie: function() {
+      return $.cookie("hide_banner");
+    },
+
+    setCookie: function(val) {
+      $.cookie("hide_banner", val, {expires: (365 * 24 * 3600 * 1000)});
+    },
+
+    toggleBanner: function() {
+      this.getCookie() == "t" ? this.showBanner(true) : this.hideBanner(true);
+    },
+
+    showBanner: function(animate) {
+      this.updateBanner("show", animate);
+    },
+
+    hideBanner: function(animate) {
+      this.updateBanner("hide", animate);
+    },
+
+    toggleBtnAttrs: function(action) {
+      var [oldIcon, newIcon, text] = (action == "show" ? ["down", "up", "Sluiten"] : ["up", "down", "Openen"]);
+      return {oldIcon, newIcon, text};
+    },
+
+    setToggleBtnAttrs: function(args) {
+      $(".ccb-toggle-icon").removeClass("fa-chevron-" + args.oldIcon);
+      $(".ccb-toggle-icon").addClass("fa-chevron-" + args.newIcon);
+      $(".ccb-toggle-text").text(args.text);
+    },
+
+    updateBanner: function(action, animate) {
+
+      this.setCookie(action == "show" ? "" : "t");
+
+      var toggleBtnAttrs = this.toggleBtnAttrs(action);
+
+      if (animate) {
+
+        var that = this;
+        $(".ccb-main").animate({height: "toggle"}, 500, function() {
+          that.setToggleBtnAttrs(toggleBtnAttrs);
+        });
+
+      } else {
+
+        action == "show" ? $(".ccb-main").show() : $(".ccb-main").hide();
+        this.setToggleBtnAttrs(toggleBtnAttrs);
+
+      }
+
+    }
+
+  };
+
+  api.onPageChange(function() {
+    if (location.pathname == "/") {
+      $(".ccb-container").show();
+      window.crmBanner.getCookie() == "t" ? window.crmBanner.hideBanner() : window.crmBanner.showBanner();
+    } else {
+      $(".ccb-container").hide();
+    }
+  });
+</script>
